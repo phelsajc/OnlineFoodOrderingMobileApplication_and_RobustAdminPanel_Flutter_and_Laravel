@@ -27,14 +27,14 @@ class SignUpPage extends StatelessWidget {
       "f.png",
       "g.png",
     ];
-    void _registration(AuthController authController){
+    Future<void> _registration(AuthController authController) async {
 
-      String name = nameController.text.trim();
-      String phone = phoneController.text.trim();
-      String email = emailController.text.trim();
-      String password = passwordController.text.trim();
+      String name = 'Carlo';//nameController.text.trim();
+      String phone = '09263218740';//phoneController.text.trim();
+      String email = 'jclucasan@gmail.com';//emailController.text.trim();
+      String password = '123456';//passwordController.text.trim();
 
-      if(name.isEmpty){
+      /* if(name.isEmpty){
         showCustomSnackBar("Type in your name", title: "Name");
 
       }else if(phone.isEmpty){
@@ -64,10 +64,27 @@ class SignUpPage extends StatelessWidget {
           print("Success registration");
           Get.offNamed(RouteHelper.getInitial());
           }else{
+            print(status.message);
            showCustomSnackBar(status.message);
           }
         });
-      }
+      } */
+
+      
+        SignUpBody signUpBody = SignUpBody(
+            name: name,
+            phone: phone,
+            email: email,
+            password: password);
+        authController.registration(signUpBody).then((status){
+          if(status.isSuccess){
+          print("Success registration");
+          Get.offNamed(RouteHelper.getInitial());
+          }else{
+            print(status.message);
+           showCustomSnackBar(status.message);
+          }
+        });
     }
 
     return Scaffold(
@@ -127,7 +144,7 @@ class SignUpPage extends StatelessWidget {
                     ),
                     child: Center(
                       child: BigText(
-                        text: "Sign Up",
+                        text: "Sign Up!",
                         size: Dimensions.font20+Dimensions.font20/2,
                         color: Colors.white,
                       ),
